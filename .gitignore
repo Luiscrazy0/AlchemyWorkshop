@@ -1,0 +1,38 @@
+# Unity generated
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+MemoryCaptures/
+
+# Visual Studio / Rider / VSCode
+.vscode/
+.vs/
+*.sln
+*.csproj
+*.user
+*.unityproj
+*.pidb
+*.suo
+*.userprefs
+*.userosscache
+
+# OS generated
+.DS_Store
+Thumbs.db
+
+# Crash logs
+crashlytics-build.properties
+
+# Asset meta data should be tracked
+!/[Aa]ssets/**/*.meta
+!/[Pp]roject[Ss]ettings/**/*.meta
+
+# Avoid committing local packages
+Packages/packages-lock.json
+
+# Others
+*.apk
+*.unitypackage
