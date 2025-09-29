@@ -27,16 +27,21 @@ public class TemperatureBar : MonoBehaviour
 
     public void AutoCooling()
     {
-        if(temperature <= 100 && temperature > 0)
+        if (temperature <= 100 && temperature > 0)
         {
             temperature -= 4 * Time.deltaTime;
 
 
         }
+        else if (temperature > 100)
+        {
+            GameController.Instance.SetState(GameController.GameState.Victory);
+            Debug.Log("温度达到100，开始结算");
+        }
         else
         {
-            GameAssets.GameFail = true;
-            Debug.Log("温度条爆了，游戏失败");
+            GameController.Instance.SetState(GameController.GameState.GameOver);
+            Debug.Log("温度为0，游戏失败");
         }
             
     }

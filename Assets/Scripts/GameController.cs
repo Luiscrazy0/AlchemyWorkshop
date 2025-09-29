@@ -7,6 +7,7 @@ public class GameController : MonoBehaviour
 {
     public static GameController Instance;
     public static LevelBase selectedLevel;
+    public PotController pot;
 
     public enum GameState
     {
@@ -65,7 +66,7 @@ public class GameController : MonoBehaviour
     private void OnGameOver()
     {
         // 停止时间流逝
-        Time.timeScale = Mathf.Lerp(1f,0f, 10*Time.deltaTime);
+        
         SceneManager.LoadScene(0);
         // 弹出失败UI
         //UIManager.Instance.ShowGameOverUI();
@@ -73,6 +74,8 @@ public class GameController : MonoBehaviour
 
     private void OnVictory()
     {
+        int grade = Grader.CalculateGrade(pot.ingredients);
+        Debug.Log("炼丹分数为:" + grade);
         
         //UIManager.Instance.ShowVictoryUI();
     }

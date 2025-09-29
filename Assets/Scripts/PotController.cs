@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using UnityEditor.ShaderGraph;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class PotController : MonoBehaviour,IDropHandler
 {
-    private List<RefinedElement> ingredients = new List<RefinedElement>();
+    public List<RefinedElement> ingredients = new List<RefinedElement>();
     public GameObject numPrefab;
     public Transform parentTransform;
     public void OnDrop(PointerEventData eventData)
@@ -58,16 +60,7 @@ public class PotController : MonoBehaviour,IDropHandler
         StartCoroutine(NumFlyUP(numRt,refinedElement));
     }
 
-    private void Start()
-    {
-        
-
-    }
-
-    private void Update()
-    {
-        
-    }
+    
     public IEnumerator NumFlyUP(RectTransform numRt,RefinedElement elem)
     {
         
@@ -75,19 +68,33 @@ public class PotController : MonoBehaviour,IDropHandler
         float posX = numRt.anchoredPosition.x;
         float flyNormorlized = 0f;
         float flyPosition = 10f;
+
+        string raw = numRt.GetComponent<TMP_Text>().text;//数字的飞行速度和它的元素含量有关
+        float num;
+        if (float.TryParse(raw, out num))
+        {
+            Debug.Log($"解析成功: {num}");
+        }
+        else
+        {
+            Debug.LogError($"无法解析成 float，原始字符串是: '{raw}'");
+        }
+
         Debug.Log("进入循环器");
         while (flyPosition < 220f-0.01f )
         {
+            if (GameController.Instance.CurrentState == GameController.GameState.Victory)
+                break;
             if (TemperatureBar.temperature < 34f)
             {
                 flySpeed = 0.00f;
             } else if(TemperatureBar.temperature <67f &&TemperatureBar.temperature >= 34f)
             {
-                flySpeed = 0.01f;
+                flySpeed = 0.01f *num;
             }
             else
             {
-                flySpeed = 0.02f;
+                flySpeed = 0.02f *num;
             }
             flyNormorlized += flySpeed;
             flyPosition = Mathf.Lerp(10f, 220f, flyNormorlized);
