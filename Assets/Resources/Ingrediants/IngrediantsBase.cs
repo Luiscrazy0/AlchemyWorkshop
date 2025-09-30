@@ -15,8 +15,15 @@ public class IngrediantsBase : ScriptableObject
     public int wood;
     public int metal;
     public int earth;
-   
+
     // 返回这个材料的“属性值 + 对应颜色”
+    private void OnValidate()
+    {
+        // 让 ingredientName 自动等于 ScriptableObject 文件的名字
+        ingredientName = this.name;
+        cost = GetElementInfo().value * 100;
+        baseQuality = GetElementInfo().value;
+    }
     public (int value, Color color,string type) GetElementInfo()
     {
         if (fire > 0) return (fire, Color.red,"fire");

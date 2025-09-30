@@ -14,6 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   levelName: 1
   availabelIngredients:
+  - {fileID: 11400000, guid: 6bf43a5d6d7d9b54785076cca1ed4589, type: 2}
+  - {fileID: 11400000, guid: cd5de76aa5518cb479106ca874f37632, type: 2}
+  - {fileID: 11400000, guid: c823477fe1a93bf489fab84e3fcbb4f0, type: 2}
   - {fileID: 11400000, guid: 1b4a3b095bfe88348b9ad10c8ec43282, type: 2}
+  - {fileID: 11400000, guid: c34a6b9725ac8df4da491e13e99c035a, type: 2}
   - {fileID: 11400000, guid: 15745913dc828e84c8d760ae08e215a8, type: 2}
   targetPotion: {fileID: 11400000, guid: 57c25255beeebb34da1c4037d6a5f0ec, type: 2}

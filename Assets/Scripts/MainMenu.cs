@@ -8,35 +8,35 @@ using UnityEngine.UI;
 
 public class MainMenu: MonoBehaviour
 {
-    public bool canLoad = false;//判断是否有游玩记录
+    
     
     public Button playButton;
-    public Button continueButton;//直接从上一次的最后一关开始
+    public Button potionStorageButton;//
     public Button quitButton;//获取三个开始界面按钮
 
-    public Button backButton;
+   
     public TMP_Text moneyNum;
 
     public GameObject mainPanel;
-    public GameObject levelPanel;//获取两个panel方便切换到关卡选择界面
+    public GameObject levelPanel;
+    public GameObject storagePanel;//获取两个panel方便切换到关卡选择界面
     private void Start()
     {
         playButton.onClick.AddListener(OpenLevelSelect);
         quitButton.onClick.AddListener(QuitGame);
-        backButton.onClick.AddListener(OpenMainPanel);
-        continueButton.onClick.AddListener(LoadGame);
+        potionStorageButton.onClick.AddListener(OpenStoragePanel);
     }
     private void Update()
     {
-        if (!canLoad)
-        {
-            continueButton.interactable = false;
-        }
-        else
-        {
-            continueButton.interactable = true;
+        //if (true)
+        //{
+        //    potionStorageButton.interactable = true;
+        //}
+        //else
+        //{
+        //    potionStorageButton.interactable = false;
             
-        }
+        //}
         
         moneyNum.text = PlayerData.Instance.money.ToString();    
         
@@ -45,11 +45,20 @@ public class MainMenu: MonoBehaviour
     {
         mainPanel.SetActive(false);
         levelPanel.SetActive(true);
+        storagePanel.SetActive(false);
+
     }
     public void OpenMainPanel()
     {
         mainPanel.SetActive(true);
         levelPanel.SetActive(false);
+        storagePanel.SetActive(false);
+    }
+    public void OpenStoragePanel()
+    {
+        mainPanel.SetActive(false);
+        levelPanel.SetActive(false);
+        storagePanel.SetActive(true);
     }
     public void PlayGame()
     {
@@ -62,8 +71,5 @@ public class MainMenu: MonoBehaviour
         Application.Quit();
         
     }
-    public virtual void LoadGame()
-    {
-
-    }
+    
 }

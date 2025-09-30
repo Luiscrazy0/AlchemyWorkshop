@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class LevelManager : MonoBehaviour
 {
     private LevelBase level;
-    private PotionManager potionManager;
     public GameObject ingredientIconPrefab;
     public Transform ingredientIconParent;
 
@@ -15,11 +14,10 @@ public class LevelManager : MonoBehaviour
     void Start()
     {
         Debug.Log("levelManagerStart");
-        GameAssets.GameFail = false;
-        potionManager = FindObjectOfType<PotionManager>();
+        GameController.Instance.SetState(GameController.GameState.Playing);
+        
         level = GameController.selectedLevel;
-        if (potionManager != null && level != null)
-            potionManager.currentPotionConfig = level.targetPotion;
+        
         GenerateMaterials();
     }
 

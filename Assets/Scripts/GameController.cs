@@ -19,7 +19,23 @@ public class GameController : MonoBehaviour
 
     public GameState CurrentState {  get; private set; } = GameState.Playing;
 
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // 尝试在新场景里找到 PotController
+        pot = FindObjectOfType<PotController>();
+    }
     private void Awake()
+
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
@@ -42,6 +58,7 @@ public class GameController : MonoBehaviour
 
     public void SetState(GameState newState)
     {
+        if (CurrentState == newState) return;
         CurrentState = newState;
         Debug.Log("Game State changed to:" + newState);
 

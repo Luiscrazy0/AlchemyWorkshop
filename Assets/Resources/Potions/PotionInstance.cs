@@ -5,11 +5,13 @@ using UnityEngine;
 public class PotionInstance : MonoBehaviour
 {
     public PotionBase potion;
-    public int finalQuality;
+    public int price;
+    public int grade;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        price = grade * (int)Mathf.Pow(10,potion.baseQuality); 
     }
 
     // Update is called once per frame
@@ -17,4 +19,5 @@ public class PotionInstance : MonoBehaviour
     {
         
     }
+
 }

@@ -36,7 +36,7 @@ public class TemperatureBar : MonoBehaviour
         else if (temperature > 100)
         {
             GameController.Instance.SetState(GameController.GameState.Victory);
-            Debug.Log("温度达到100，开始结算");
+            
         }
         else
         {

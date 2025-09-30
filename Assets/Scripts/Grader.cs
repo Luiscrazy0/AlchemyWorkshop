@@ -19,29 +19,34 @@ public class Grader : MonoBehaviour
 
         int grade = 0;
         bool isMiddlePass =true;
-        RefinedElement current = null;
+        RefinedElement current =null;
         foreach (var elem in refinedElements)
         {
+            Debug.Log("材料炼化度" + elem.refine);
             if (elem.refine <= 33)
             {
                 grade += elem.value;
-            }else if(elem.refine <=66)
+            }else if(elem.refine >33 && elem.refine <= 66)
             {
+                if (!isMiddlePass)
+                {
+                    current = null;
+                }//在中间层出现过相克就会全部跳过不加分。
+
                 if (current == null)
                 {
                     current = new RefinedElement { type = elem.type, value = elem.value, refine = elem.refine };
+                    Debug.Log("已对current赋值");
+                        
                 }
                 else
                 {
-                    if (!isMiddlePass)
-                    {
-                        current = null;
-                    }//在中间层出现过相克就会全部跳过不加分。
+                    
                     // 相生？
                     if (IsGenerating(current.type, elem.type))
                     {
                         current.type = elem.type;
-                        current.value = (current.value + elem.value) * 2;
+                        current.value = (current.value + elem.value) * 4;
                     }
                     // 相克？
                     else if (IsOvercoming(current.type, elem.type))
@@ -57,6 +62,11 @@ public class Grader : MonoBehaviour
                 }
             }else // 67-100 顶层
             {
+                if (!isMiddlePass)
+                {
+                    current = null;
+                    isMiddlePass = true;
+                }//在中间层出现过相克就会全部跳过不加分。
                 if (current == null)
                 {
                     current = new RefinedElement { type = elem.type, value = elem.value, refine = elem.refine };
@@ -79,14 +89,19 @@ public class Grader : MonoBehaviour
                 }
             }
         }
-        if (current != null)
+        bool test1 = (current != null);
+        if(current != null)
+        {
             grade += current.value;
-
+            
+        }
+        Debug.Log("已加current到grade上" + test1);
         return grade;
     }
 
     private static bool IsGenerating(string a, string b)
     {
+        
         return (a == "wood" && b == "fire") ||
                (a == "fire" && b == "earth") ||
                (a == "earth" && b == "metal") ||
@@ -96,11 +111,16 @@ public class Grader : MonoBehaviour
 
     private static bool IsOvercoming(string a, string b)
     {
-        return (a == "wood" && b == "earth") ||
-               (a == "earth" && b == "water") ||
-               (a == "water" && b == "fire") ||
-               (a == "fire" && b == "metal") ||
-               (a == "metal" && b == "wood");
+        
+        
+            return (a == "wood" && b == "earth") ||
+                   (a == "earth" && b == "water") ||
+                   (a == "water" && b == "fire") ||
+                   (a == "fire" && b == "metal") ||
+                   (a == "metal" && b == "wood");
+        
+
+            
     }
 
 }

@@ -57,11 +57,11 @@ public class PotController : MonoBehaviour,IDropHandler
         refinedElement.value = ingrediantData.GetElementInfo().value;
         refinedElement.refine = 0;
         ingredients.Add(refinedElement);
-        StartCoroutine(NumFlyUP(numRt,refinedElement));
+        StartCoroutine(NumFlyUP(numRt,refinedElement,ingrediantData));
     }
 
     
-    public IEnumerator NumFlyUP(RectTransform numRt,RefinedElement elem)
+    public IEnumerator NumFlyUP(RectTransform numRt,RefinedElement elem,IngrediantsBase ingrediantData)
     {
         
         float flySpeed = 0f;
@@ -70,15 +70,11 @@ public class PotController : MonoBehaviour,IDropHandler
         float flyPosition = 10f;
 
         string raw = numRt.GetComponent<TMP_Text>().text;//数字的飞行速度和它的元素含量有关
-        float num;
-        if (float.TryParse(raw, out num))
-        {
-            Debug.Log($"解析成功: {num}");
-        }
-        else
-        {
-            Debug.LogError($"无法解析成 float，原始字符串是: '{raw}'");
-        }
+        if (raw == null)
+            Debug.Log("raw 不存在");
+
+        float num = ingrediantData.GetElementInfo().value;
+        
 
         Debug.Log("进入循环器");
         while (flyPosition < 220f-0.01f )

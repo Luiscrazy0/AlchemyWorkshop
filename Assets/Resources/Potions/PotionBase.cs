@@ -8,7 +8,6 @@ public class PotionBase : ScriptableObject
     public string potionName;
     public Sprite icon;
     public int potionLevel;
-    public int minQuality = 0;
-    public int maxQuality = 10;
+    public int baseQuality;
 
 }
